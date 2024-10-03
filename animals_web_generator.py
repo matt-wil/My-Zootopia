@@ -44,13 +44,15 @@ def format_the_data(animals_list):
     """
     stringed_animals = ""
     for animal in animals_list:
-        stringed_animals += '<li class="cards__item">'
-        for key, val in animal.items():
-            if val is None:
-                continue
-            stringed_animals += f"{key}: {val}<br/>\n"
-        stringed_animals += '</li>'
-        stringed_animals += "\n"
+        stringed_animals += '<li class="cards__item">\n'
+        stringed_animals += f'  <div class="card__title"> {animal["Name"]}<div/>\n'
+        stringed_animals += '   <p class="card_text">\n'
+        stringed_animals += f'    <strong>Location</strong> {animal["Location"]}<br/>\n'
+        if animal.get("Type"):
+            stringed_animals += f'    <strong>Type</strong> {animal["Type"]}<br/>\n'
+        stringed_animals += f'    <strong>Diet</strong> {animal["Diet"]}<br/>\n'
+        stringed_animals += '  </p>\n'
+        stringed_animals += '</li>\n'
     return stringed_animals
 
 
