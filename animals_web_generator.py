@@ -1,6 +1,9 @@
 import json
+import os
 
 FILENAME = "animals_data.json"
+HTML = "animals_template.html"
+NEW_HTML = "animals.html"
 
 
 def load_data(filename):
@@ -32,18 +35,44 @@ def sort_data(data):
     return new_animal_list
 
 
-def print_the_data(animals_list):
-    """printing out the data from the sort_data() function in the correct format"""
+def format_the_data(animals_list):
+    """
+    Sorts through the list of dicts and placing them all into a string for the HTML file writing.
+    The Function will skip any Key: Value where the Value == None
+    :param animals_list: (list) Nested
+    :return: (string)
+    """
+    stringed_animals = ""
     for animal in animals_list:
         for key, val in animal.items():
             if val is None:
                 continue
-            print(f"{key}: {val}")
-        print()
+            stringed_animals += f"{key}: {val}\n"
+        stringed_animals += "\n"
+    return stringed_animals
+
+
+def read_html_doc(html_file):
+    with open(html_file, "r") as file:
+        return file.read()
+
+
+def write_html_doc(new_file, new_string):
+    if os.path.exists(new_file):
+        print(f"{new_file} already exists")
+        return False
+    else:
+        with open(new_file, "w") as file:
+            file.write(new_string)
+            print(f"{new_file} successfully created and content written.")
+        return True
 
 
 def main():
-    print_the_data(sort_data(load_data(FILENAME)))
+    new_animal_data = print_the_data(sort_data(load_data(FILENAME)))
+    html_data = read_html_doc(HTML)
+    new_html_data = html_data.replace("__REPLACE_ANIMALS_INFO__", new_animal_data)
+    write_html_doc(NEW_HTML, new_html_data)
 
 
 if __name__ == '__main__':
