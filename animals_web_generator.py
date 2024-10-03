@@ -13,46 +13,53 @@ def load_data(filename):
 
 def sort_data(data):
     """
-    Sorts through the JSON data extracting only the data we need Name, Location[0], Diet and Type.
-    The Function takes a list of dictionaries and searches through the data for the specific keys needed.
-    and places the data into a new list of animal dictionaries with only the needed data.
-    :param data: (list) Nested with dictionaries and list
+    Extracts Name, Location[0], Diet, and Type from JSON data and returns a simplified list.
+    :param data: (list) Nested dictionaries
     :return: (list) of dictionaries
     """
     new_animal_list = []
     for animal in data:
-        new_animal_dict = {}
-        names = animal["name"]
-        location = animal["locations"]
-        diet = animal["characteristics"]["diet"]
-        types = animal["characteristics"].get("type")
-        new_animal_dict["Name"] = names
-        new_animal_dict["Location"] = location[0]
-        new_animal_dict["Diet"] = diet
-        new_animal_dict["Type"] = types
-        new_animal_list.append(new_animal_dict)
+        new_animal_list.append({
+            "Name": animal["name"],
+            "Scientific Name": animal["taxonomy"].get("scientific_name"),
+            "Location": animal["locations"][0],
+            "Diet": animal["characteristics"].get("diet"),
+            "Type": animal["characteristics"].get("type"),
+            "Distinctive Feature": animal["characteristics"].get("distinctive_feature"),
+            "Lifespan": animal["characteristics"].get("lifespan")
+        })
     return new_animal_list
 
 
+def serialize_data(animal):
+    """Serializes a single animal dictionary into an HTML list item"""
+    output = '<li class="cards__item">\n'
+    output += f'  <div class="card__title"> {animal["Name"]}</div>\n'
+    output += '   <p class="card_text">\n'
+
+    if animal.get("Scientific Name"):
+        output += f'    <strong>Scientific Name:</strong> {animal["Scientific Name"]}<br/>\n'
+    if animal.get("Location"):
+        output += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
+    if animal.get("Type"):
+        output += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
+    if animal.get("Diet"):
+        output += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
+    if animal.get("Distinctive Feature"):
+        output += f'    <strong>Distinctive Feature:</strong> {animal["Distinctive Feature"]}<br/>\n'
+    if animal.get("Lifespan"):
+        output += f'    <strong>Lifespan:</strong> {animal["Lifespan"]}<br/>\n'
+    output += '  </p>\n'
+    output += '</li>\n'
+    return output
+
+
 def format_the_data(animals_list):
-    """
-    Sorts through the list of dicts and placing them all into a string for the HTML file writing.
-    The Function will skip any Key: Value where the Value == None
-    :param animals_list: (list) Nested
-    :return: (string)
-    """
-    stringed_animals = ""
+    """Formats the list of animals into HTML string"""
+    output = ""
     for animal in animals_list:
-        stringed_animals += '<li class="cards__item">\n'
-        stringed_animals += f'  <div class="card__title"> {animal["Name"]}</div>\n'
-        stringed_animals += '   <p class="card_text">\n'
-        stringed_animals += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
-        if animal.get("Type"):
-            stringed_animals += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
-        stringed_animals += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
-        stringed_animals += '  </p>\n'
-        stringed_animals += '</li>\n'
-    return stringed_animals
+        output += serialize_data(animal)
+    return output
 
 
 def read_html_doc(html_file):
