@@ -36,19 +36,21 @@ def serialize_data(animal):
     output = '<li class="cards__item">\n'
     output += f'  <div class="card__title"> {animal["Name"]}</div>\n'
     output += '   <p class="card_text">\n'
+    output += '      <ul class="inner_ul">\n'
 
     if animal.get("Scientific Name"):
-        output += f'    <strong>Scientific Name:</strong> {animal["Scientific Name"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Scientific Name:</strong> {animal["Scientific Name"]}</li>\n'
     if animal.get("Location"):
-        output += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Location:</strong> {animal["Location"]}</li>\n'
     if animal.get("Type"):
-        output += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Type:</strong> {animal["Type"]}</li>\n'
     if animal.get("Diet"):
-        output += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Diet:</strong> {animal["Diet"]}</li>\n'
     if animal.get("Distinctive Feature"):
-        output += f'    <strong>Distinctive Feature:</strong> {animal["Distinctive Feature"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Distinctive Feature:</strong> {animal["Distinctive Feature"]}</li>\n'
     if animal.get("Lifespan"):
-        output += f'    <strong>Lifespan:</strong> {animal["Lifespan"]}<br/>\n'
+        output += f'    <li class="inner__list__item"><strong>Lifespan:</strong> {animal["Lifespan"]}</li>\n'
+    output += '     </ul>\n'
     output += '  </p>\n'
     output += '</li>\n'
     return output
