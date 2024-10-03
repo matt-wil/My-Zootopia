@@ -1,5 +1,4 @@
 import json
-import os
 
 FILENAME = "animals_data.json"
 HTML = "animals_template.html"
@@ -65,17 +64,6 @@ def write_html_doc(new_file, new_string):
     with open(new_file, "w") as file:
         file.write(new_string)
         print(f"{new_file} successfully created and content written.")
-
-
-"""def write_html_doc(new_file, new_string):
-    if os.path.exists(new_file):
-        print(f"{new_file} already exists")
-        return False
-    else:
-        with open(new_file, "w") as file:
-            file.write(new_string)
-            print(f"{new_file} successfully created and content written.")
-        return True"""
 
 
 def main():
