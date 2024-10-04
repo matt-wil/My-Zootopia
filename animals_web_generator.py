@@ -21,7 +21,7 @@ def sort_data(data, selected_skin_type=None):
     new_animal_list = []
     for animal in data:
         skin_type = animal["characteristics"].get("skin_type")
-        if selected_skin_type and selected_skin_type != "All" and skin_type != selected_skin_type:
+        if selected_skin_type != "All" and skin_type != selected_skin_type:
             continue  # skip animals that don't match selected type
         new_animal_list.append({
             "Name": animal["name"],
