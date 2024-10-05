@@ -1,14 +1,15 @@
 import json
+import api_animals
 
 FILENAME = "animals_data.json"
 HTML = "animals_template.html"
 NEW_HTML = "animals.html"
 
 
-def load_data(filename):
-    """Loads a JSON file"""
+"""def load_data(filename):
+    #Loads a JSON file#
     with open(filename, "r") as handle:
-        return json.load(handle)
+        return json.load(handle)"""
 
 
 def sort_data(data, selected_skin_type=None):
@@ -101,7 +102,7 @@ def skin_type_input(skin_types_list):
 
 
 def main():
-    complete_data = load_data(FILENAME)
+    complete_data = api_animals.api_animal_data_retrieval()
 
     # display skin types and search user input
     available_skin_types = display_skin_types(complete_data)
