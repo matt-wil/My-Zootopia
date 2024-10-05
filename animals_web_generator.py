@@ -1,14 +1,14 @@
 import api_animals
 
-FILENAME = "animals_data.json"
 HTML = "animals_template.html"
 NEW_HTML = "animals.html"
 
-
-"""def load_data(filename):
-    #Loads a JSON file#
-    with open(filename, "r") as handle:
-        return json.load(handle)"""
+# JSON File section
+# FILENAME = "animals_data.json"
+# def load_data(filename):
+#     #Loads a JSON file#
+#     with open(filename, "r") as handle:
+#         return json.load(handle)
 
 
 def sort_data(data, selected_skin_type=None):
