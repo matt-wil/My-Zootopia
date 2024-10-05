@@ -9,10 +9,16 @@ def api_animal_data_retrieval():
     animal = input("Enter a animal name\n>>> ").strip()
     if not animal:
         return "Error: No animal name provided"
+    if not api_key:
+        return "Error: API key not found"
 
-    api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(animal)
-    response = requests.get(api_url, headers={'X-Api-Key': api_key})
-    if response.status_code == requests.codes.ok:
+    api_url = f'https://api.api-ninjas.com/v1/animals?name={animal}'
+    headers = {'X-Api-Key': api_key}
+    try:
+        response = requests.get(api_url, headers=headers)
+        response.raise_for_status()
         return response.json()
-    else:
-        return "Error:", response.status_code, response.text
+    except requests.exceptions.HTTPError as e:
+        return f"HTTP error: {e}"
+    except requests.exceptions.RequestException as e:
+        return f"Error: {e}"

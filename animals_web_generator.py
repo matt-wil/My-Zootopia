@@ -101,14 +101,19 @@ def skin_type_input(skin_types_list):
 
 
 def main():
+    # Retrieve data from the api
     complete_data = api_animals.api_animal_data_retrieval()
 
-    # display skin types and search user input
-    available_skin_types = display_skin_types(complete_data)
-    selected_skin_type = skin_type_input(available_skin_types)
+    # if no data comes back or data is invalid write a custom message
+    if not complete_data or isinstance(complete_data, str):
+        filtered_animal_data = '<li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><h2>CLICKY HERE</h2></a></li>'
+    else:
+        # display skin types and search user input
+        available_skin_types = display_skin_types(complete_data)
+        selected_skin_type = skin_type_input(available_skin_types)
 
-    # Sort data based on choice
-    filtered_animal_data = format_the_data(sort_data(complete_data, selected_skin_type))
+        # Sort data based on choice
+        filtered_animal_data = format_the_data(sort_data(complete_data, selected_skin_type))
 
     # read and update html
     html_data = read_html_doc(HTML)
