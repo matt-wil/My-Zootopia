@@ -1,4 +1,3 @@
-import json
 import api_animals
 
 FILENAME = "animals_data.json"
